@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Submiflow | Your Digital Submission Platform</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f7fb;
+  color: #17243a;
+}
+
+header {
+  background: #102442;
+  padding: 22px 7%;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 27px;
+  font-weight: bold;
+}
+
+.logo span {
+  color: #e5b85c;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 18px;
+  font-size: 14px;
+}
+
+.hero {
+  background: #102442;
+  color: white;
+  text-align: center;
+  padding: 75px 20px 90px;
+}
+
+.hero h1 {
+  font-size: 39px;
+  margin-bottom: 15px;
+}
+
+.hero p {
+  color: #d5deeb;
+  max-width: 520px;
+  margin: auto;
+  line-height: 1.7;
+}
+
+.container {
+  max-width: 850px;
+  margin: -40px auto 60px;
+  padding: 0 18px;
+}
+
+.card {
+  background: white;
+  padding: 35px 25px;
+  border-radius: 14px;
+  box-shadow: 0 8px 35px rgba(16,36,66,.10);
+}
+
+.card h2 {
+  font-size: 25px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.subtitle {
+  color: #718096;
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 28px;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.option {
+  padding: 23px 15px;
+  border: 1px solid #dce2ec;
+  border-radius: 10px;
+  text-align: center;
+  background: white;
+}
+
+.option h3 {
+  margin-bottom: 10px;
+  font-size: 17px;
+}
+
+.option p {
+  color: #718096;
+  font-size: 13px;
+  line-height: 1.6;
+  min-height: 42px;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 17px;
+  background: #c99a3d;
+  color: #102442;
+  border: none;
+  border-radius: 7px;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: #102442;
+  color: white;
+}
+
+button.light {
+  background: white;
+  border: 1px solid #102442;
+  color: #102442;
+}
+
+.view {
+  display: none;
+}
+
+.view.active {
+  display: block;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 17px 0 7px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #d8deea;
+  border-radius: 7px;
+  font-size: 15px;
+}
+
+textarea {
+  min-height: 100px;
+}
+
+.back {
+  background: transparent;
+  color: #102442;
+  border: 1px solid #d8deea;
+}
+
+.notice {
+  color: #68758a;
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 16px;
+  text-align: center;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #7b8798;
+  font-size: 13px;
+}
+
+@media(max-width:600px) {
+  .hero h1 {
+    font-size: 29px;
+  }
+
+  .options {
+    grid-template-columns: 1fr;
+  }
+
+  nav a {
+    margin-left: 8px;
+    font-size: 12px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">Submi<span>flow</span></div>
+  <nav>
+    <a href="#" onclick="showView('welcome')">Home</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Simple. Secure. Seamless.</h1>
+  <p>
+    Welcome to Submiflow. Your digital destination
+    for simple and convenient submissions.
+  </p>
+</section>
+
+<main class="container">
+
+<!-- WELCOME PAGE -->
+
+<section id="welcome" class="card view active">
+
+  <h2>Welcome to Submiflow</h2>
+
+  <p class="subtitle">
+    Choose how you would like to continue.
+  </p>
+
+  <div class="options">
+
+    <div class="option">
+      <h3>Continue as Guest</h3>
+      <p>
+        Skip registration and proceed directly
+        to the submission form.
+      </p>
+      <button onclick="showView('guest')">
+        Continue as Guest
+      </button>
+    </div>
+
+    <div class="option">
+      <h3>Create an Account</h3>
+      <p>
+        Register for an account and access
+        your personal customer area.
+      </p>
+      <button onclick="showView('register')">
+        Create Account
+      </button>
+    </div>
+
+  </div>
+
+  <button class="secondary"
+    onclick="showView('login')">
+    Already have an account? Login
+  </button>
+
+</section>
+
+
+<!-- GUEST SUBMISSION -->
+
+<section id="guest" class="card view">
+
+  <h2>Guest Submission</h2>
+
+  <p class="subtitle">
+    Complete the form below to continue.
+  </p>
+
+  <form id="guestForm">
+
+    <label>Full Name *</label>
+    <input type="text" name="fullname" required>
+
+    <label>Email Address *</label>
+    <input type="email" name="email" required>
+
+    <label>Phone Number *</label>
+    <input type="tel" name="phone" required>
+
+    <label>Select Package *</label>
+    <select name="package" required>
+      <option value="">Choose a package</option>
+      <option value="Basic">Basic Package</option>
+      <option value="Standard">Standard Package</option>
+      <option value="Premium">Premium Package</option>
+    </select>
+
+    <label>Additional Information</label>
+    <textarea name="message"></textarea>
+
+    <button type="submit">Submit Information</button>
+
+  </form>
+
+  <button class="back"
+    onclick="showView('welcome')">
+    Back
+  </button>
+
+</section>
+
+
+<!-- REGISTRATION -->
+
+<section id="register" class="card view">
+
+  <h2>Create Your Account</h2>
+
+  <p class="subtitle">
+    Join Submiflow and manage your submissions.
+  </p>
+
+  <form id="registerForm">
+
+    <label>Full Name *</label>
+    <input type="text" name="fullname" required>
+
+    <label>Username *</label>
+    <input type="text" name="username" required>
+
+    <label>Email Address *</label>
+    <input type="email" name="email" required>
+
+    <label>Password *</label>
+    <input type="password" name="password"
+      minlength="8" required>
+
+    <label>Confirm Password *</label>
+    <input type="password" name="confirmPassword"
+      minlength="8" required>
+
+    <button type="submit">Create My Account</button>
+
+  </form>
+
+  <p class="notice">
+    Account creation will be activated when the
+    secure registration system is connected.
+  </p>
+
+  <button class="back"
+    onclick="showView('welcome')">
+    Back
+  </button>
+
+</section>
+
+
+<!-- LOGIN -->
+
+<section id="login" class="card view">
+
+  <h2>Welcome Back</h2>
+
+  <p class="subtitle">
+    Login to your Submiflow account.
+  </p>
+
+  <form id="loginForm">
+
+    <label>Email or Username *</label>
+    <input type="text" name="identity" required>
+
+    <label>Password *</label>
+    <input type="password" name="password" required>
+
+    <button type="submit">Login</button>
+
+  </form>
+
+  <p class="notice">
+    Login will be activated when the secure
+    account system is connected.
+  </p>
+
+  <button class="back"
+    onclick="showView('welcome')">
+    Back
+  </button>
+
+</section>
+
+</main>
+
+<footer>
+  © 2026 Submiflow. All rights reserved.
+</footer>
+
+<script>
+
+function showView(id) {
+  document.querySelectorAll('.view').forEach(view => {
+    view.classList.remove('active');
+  });
+
+  document.getElementById(id).classList.add('active');
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+
+document.getElementById('guestForm')
+.addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  alert('The submission service is not connected yet.');
+});
+
+document.getElementById('registerForm')
+.addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  const password = this.password.value;
+  const confirmPassword = this.confirmPassword.value;
+
+  if (password !== confirmPassword) {
+    alert('Your passwords do not match.');
+    return;
+  }
+
+  alert('Account registration will be available once the secure system is connected.');
+});
+
+document.getElementById('loginForm')
+.addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  alert('Login will be available once the secure account system is connected.');
+});
+
+</script>
+
+</body>
+</html>
