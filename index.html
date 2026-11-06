@@ -318,16 +318,13 @@ footer {
   <h2>Create Your Account</h2>
 
   <p class="subtitle">
-    Join Submiflow and manage your submissions.
+    Join PrimeDataHub and manage your submissions.
   </p>
 
-  <form id="registerForm">
+  <form id="registerForm" onsubmit="registerCustomer(event)">
 
     <label>Full Name *</label>
     <input type="text" name="fullname" required>
-
-    <label>Username *</label>
-    <input type="text" name="username" required>
 
     <label>Email Address *</label>
     <input type="email" name="email" required>
@@ -344,10 +341,7 @@ footer {
 
   </form>
 
-  <p class="notice">
-    Account creation will be activated when the
-    secure registration system is connected.
-  </p>
+  <p id="registerMessage" class="notice"></p>
 
   <button class="back"
     onclick="showView('welcome')">
@@ -440,7 +434,64 @@ document.getElementById('loginForm')
 
   alert('Login will be available once the secure account system is connected.');
 });
+async function registerCustomer(event) {
+  event.preventDefault();
 
+  const form = document.getElementById("registerForm");
+  const message = document.getElementById("registerMessage");
+  const button = form.querySelector('button[type="submit"]');
+
+  const full_name = form.fullname.value.trim();
+  const email = form.email.value.trim();
+  const password = form.password.value;
+  const confirmPassword = form.confirmPassword.value;
+
+  if (password !== confirmPassword) {
+    message.textContent = "Passwords do not match.";
+    return;
+  }
+
+  message.textContent = "Creating your account...";
+  button.disabled = true;
+
+  try {
+    const response = await fetch(
+      "https://primedatahub-backend.onrender.com/api/auth/register",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          full_name,
+          email,
+          password
+        })
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Registration failed.");
+    }
+
+    if (data.token) {
+      localStorage.setItem("primeDataHubToken", data.token);
+    }
+
+    message.textContent =
+      data.message || "Your account was created successfully!";
+
+    form.reset();
+
+  } catch (error) {
+    message.textContent = error.message ||
+      "Unable to connect. Please try again.";
+  } finally {
+    button.disabled = false;
+  }
+}
 </script>
 
 </body>
